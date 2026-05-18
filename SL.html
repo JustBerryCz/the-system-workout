@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The System - Solo Leveling AI Workout</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;600;700&display=swap');
+
+        :root {
+            --bg-color: #060913;
+            --panel-bg: rgba(10, 18, 36, 0.85);
+            --system-blue: #00f0ff;
+            --system-purple: #9d00ff;
+            --text-color: #ffffff;
+            --text-gray: #8a9fc4;
+            --warning-red: #ff0055;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Rajdhani', sans-serif;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(157, 0, 255, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(0, 240, 255, 0.15) 0px, transparent 50%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            letter-spacing: 1px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .system-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, var(--system-blue), var(--system-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+            margin-bottom: 5px;
+        }
+
+        .system-subtitle {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .system-panel {
+            background: var(--panel-bg);
+            border: 2px solid var(--system-blue);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.2), inset 0 0 15px rgba(0, 240, 255, 0.1);
+            border-radius: 4px;
+            padding: 30px;
+            margin-bottom: 30px;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .system-panel::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            width: 20px;
+            height: 20px;
+            border-top: 4px solid var(--system-purple);
+            border-left: 4px solid var(--system-purple);
+        }
+
+        .system-panel::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            width: 20px;
+            height: 20px;
+            border-bottom: 4px solid var(--system-purple);
+            border-right: 4px solid var(--system-purple);
+        }
+
+        .quest-header {
+            border-bottom: 1px solid rgba(0, 240, 255, 0.3);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .quest-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.6rem;
+            color: var(--system-blue);
+            text-transform: uppercase;
+        }
+
+        .quest-status {
+            color: var(--warning-red);
+            font-weight: bold;
+            text-transform: uppercase;
+            animation: pulse 2s infinite;
+        }
+
+        .quest-description {
+            color: var(--text-gray);
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .quest-list {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .quest-item {
+            font-size: 1.4rem;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .quest-item span {
+            color: var(--system-blue);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .blurred {
+            filter: blur(6px);
+            user-select: none;
+            opacity: 0.5;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .price-tag {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            color: #ffffff;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .price-tag span {
+            color: var(--system-blue);
+        }
+
+        .system-btn {
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(90deg, var(--system-purple), var(--system-blue));
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 4px;
+            box-shadow: 0 0 20px rgba(157, 0, 255, 0.6);
+            transition: all 0.3s ease;
+            letter-spacing: 2px;
+        }
+
+        .system-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.8);
+        }
+
+        .warning-box {
+            border: 1px solid var(--warning-red);
+            background: rgba(255, 0, 85, 0.05);
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 25px;
+            font-size: 0.95rem;
+            color: #ff94b4;
+            text-align: center;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; text-shadow: 0 0 10px var(--warning-red); }
+            100% { opacity: 0.6; }
+        }
+
+        @media (max-width: 600px) {
+            .system-title { font-size: 2rem; }
+            .quest-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .price-tag { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 class="system-title">The System</h1>
+        <div class="system-subtitle">AI Workout Generator v1.3</div>
+    </header>
+
+    <main>
+        <div class="system-panel">
+            <div class="quest-header">
+                <div class="quest-title">Daily Quest: Průlom Limitů</div>
+                <div class="quest-status" id="status-text">[ ZAMČENO ]</div>
+            </div>
+            
+            <p class="quest-description">
+                Systém pro tebe vygeneroval personalizovaný dynamický trénink. Splň úkoly, nebo čel penalizaci v trestné zóně.
+            </p>
+
+            <ul class="quest-list blurred" id="workout-list">
+                <li class="quest-item">Kliky (Push-ups) <span>0 / 100</span></li>
+                <li class="quest-item">Dřepy (Squats) <span>0 / 100</span></li>
+                <li class="quest-item">Angličáky (Burpees) <span>0 / 50</span></li>
+                <li class="quest-item">Stojka u zdi (Handstand Hold) <span>0 / 2 min</span></li>
+                <li class="quest-item">Běh (Running) <span>0 / 10 km</span></li>
+            </ul>
+
+            <div class="cta-section">
+                <div class="price-tag">Cena za odemčení: <span>1 Kč</span></div>
+                <button class="system-btn" id="checkout-button" onclick="redirectToStripe()">Odemknout Quest</button>
+            </div>
+
+            <div class="warning-box">
+                VAROVÁNÍ: Pokud Quest neodevzdáš do půlnoci, bude spuštěna penalizační zóna!
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Inicializace Stripe s tvým reálným produkčním klíčem
+        const stripe = Stripe('pk_live_51TYOgTA5XrT5XdqMNS0D2j6CtmnCmAwZuyUN257Oa9wzn194dTWBkdKTY8Kj6bQK4o9rcifRSmYWazceNFFAhjcT00ncm4Y6Yg');
+
+        function redirectToStripe() {
+            stripe.redirectToCheckout({
+                lineItems: [{
+                    // Tvůj reálný produkt ze Stripe
+                    price: 'prod_UXTh8M9IQmHuWh', 
+                    quantity: 1,
+                }],
+                mode: 'payment',
+                // Po zaplacení se vrátí na stejnou adresu a předá parametr success=true
+                successUrl: window.location.origin + window.location.pathname + '?success=true',
+                cancelUrl: window.location.origin + window.location.pathname,
+            }).then(function (result) {
+                if (result.error) {
+                    alert(result.error.message);
+                }
+            });
+        }
+
+        // Sledování, zda se uživatel vrací po úspěšném zaplacení reálné koruny
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('success') === 'true') {
+                const list = document.getElementById('workout-list');
+                const status = document.getElementById('status-text');
+                const button = document.getElementById('checkout-button');
+                
+                list.classList.remove('blurred');
+                status.textContent = '[ AKTIVNÍ ]';
+                status.style.color = '#00f0ff';
+                status.style.animation = 'none';
+                button.disabled = true;
+                button.textContent = "Quest Odemčen";
+                button.style.background = "#0fa";
+                button.style.boxShadow = "0 0 20px #0fa";
+                
+                alert("Systém potvrdil platbu. Tvůj Daily Quest byl aktivován. Překonej své limity!");
+            }
+        });
+    </script>
+</body>
+</html>
