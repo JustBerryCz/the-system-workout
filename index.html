@@ -9,13 +9,14 @@
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;600;700&display=swap');
 
         :root {
-            --bg-color: #060913;
-            --panel-bg: rgba(10, 18, 36, 0.85);
+            --bg-color: #030611;
+            --panel-bg: rgba(6, 11, 26, 0.85);
             --system-blue: #00f0ff;
             --system-purple: #9d00ff;
             --text-color: #ffffff;
-            --text-gray: #8a9fc4;
+            --text-gray: #7ee3ff;
             --warning-red: #ff0055;
+            --success-green: #00ffaa;
         }
 
         * {
@@ -29,81 +30,78 @@
             color: var(--text-color);
             font-family: 'Rajdhani', sans-serif;
             background-image: 
-                radial-gradient(at 0% 0%, rgba(157, 0, 255, 0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(0, 240, 255, 0.15) 0px, transparent 50%);
+                radial-gradient(at 0% 0%, rgba(157, 0, 255, 0.2) 0px, transparent 40%),
+                radial-gradient(at 100% 100%, rgba(0, 240, 255, 0.2) 0px, transparent 40%),
+                linear-gradient(rgba(18, 24, 48, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(18, 24, 48, 0.3) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 30px 30px, 30px 30px;
             min-height: 100vh;
             overflow-x: hidden;
             letter-spacing: 1px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         header {
             text-align: center;
-            padding: 40px 20px;
+            padding: 20px;
+            margin-bottom: 10px;
         }
 
         .system-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: 900;
             text-transform: uppercase;
-            background: linear-gradient(45deg, var(--system-blue), var(--system-purple));
+            background: linear-gradient(45deg, #ffffff, var(--system-blue), var(--system-purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
-            margin-bottom: 5px;
+            text-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
+            letter-spacing: 5px;
+            animation: titleGlitch 4s infinite;
         }
 
         .system-subtitle {
             font-family: 'Orbitron', sans-serif;
-            color: var(--text-gray);
-            font-size: 0.9rem;
+            color: #519bbd;
+            font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 4px;
+            letter-spacing: 6px;
+            margin-top: 5px;
         }
 
         main {
-            max-width: 800px;
-            margin: 0 auto;
+            width: 100%;
+            max-width: 750px;
             padding: 20px;
         }
 
         .system-panel {
             background: var(--panel-bg);
             border: 2px solid var(--system-blue);
-            box-shadow: 0 0 25px rgba(0, 240, 255, 0.2), inset 0 0 15px rgba(0, 240, 255, 0.1);
-            border-radius: 4px;
-            padding: 30px;
-            margin-bottom: 30px;
+            box-shadow: 0 0 35px rgba(0, 240, 255, 0.25), inset 0 0 20px rgba(0, 240, 255, 0.15);
+            border-radius: 2px;
+            padding: 35px;
             position: relative;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
         }
 
+        /* Rohové sci-fi zaměřovače */
         .system-panel::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            width: 20px;
-            height: 20px;
-            border-top: 4px solid var(--system-purple);
-            border-left: 4px solid var(--system-purple);
+            content: ''; position: absolute; top: -3px; left: -3px; width: 30px; height: 30px;
+            border-top: 5px solid var(--system-purple); border-left: 5px solid var(--system-purple);
         }
-
         .system-panel::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            right: -2px;
-            width: 20px;
-            height: 20px;
-            border-bottom: 4px solid var(--system-purple);
-            border-right: 4px solid var(--system-purple);
+            content: ''; position: absolute; bottom: -3px; right: -3px; width: 30px; height: 30px;
+            border-bottom: 5px solid var(--system-purple); border-right: 5px solid var(--system-purple);
         }
 
         .quest-header {
-            border-bottom: 1px solid rgba(0, 240, 255, 0.3);
-            padding-bottom: 15px;
-            margin-bottom: 20px;
+            border-bottom: 2px solid rgba(0, 240, 255, 0.4);
+            padding-bottom: 20px;
+            margin-bottom: 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -111,109 +109,140 @@
 
         .quest-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.6rem;
-            color: var(--system-blue);
+            font-size: 1.8rem;
+            color: #ffffff;
+            text-shadow: 0 0 10px var(--system-blue);
             text-transform: uppercase;
         }
 
         .quest-status {
+            font-family: 'Orbitron', sans-serif;
             color: var(--warning-red);
-            font-weight: bold;
+            font-size: 1.2rem;
+            font-weight: 900;
             text-transform: uppercase;
-            animation: pulse 2s infinite;
+            background: rgba(2ff, 0, 85, 0.1);
+            padding: 5px 15px;
+            border: 1px solid var(--warning-red);
+            box-shadow: 0 0 15px rgba(255, 0, 85, 0.3);
+            animation: pulse 1.5s infinite;
         }
 
         .quest-description {
             color: var(--text-gray);
             font-size: 1.2rem;
-            margin-bottom: 25px;
-            line-height: 1.5;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            background: rgba(0, 240, 255, 0.03);
+            padding: 15px;
+            border-left: 3px solid var(--system-blue);
         }
 
         .quest-list {
             list-style: none;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
 
         .quest-item {
             font-size: 1.4rem;
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 15px 10px;
+            border-bottom: 1px solid rgba(0, 240, 255, 0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: all 0.3s;
         }
 
         .quest-item span {
             color: var(--system-blue);
             font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
         }
 
         .blurred {
-            filter: blur(6px);
+            filter: blur(8px);
             user-select: none;
-            opacity: 0.5;
+            opacity: 0.25;
+            pointer-events: none;
         }
 
         .cta-section {
             text-align: center;
             padding: 20px 0;
+            background: rgba(157, 0, 255, 0.05);
+            border: 1px dashed rgba(157, 0, 255, 0.3);
+            border-radius: 4px;
         }
 
         .price-tag {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             color: #ffffff;
-            margin-bottom: 15px;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            margin-bottom: 20px;
         }
 
         .price-tag span {
-            color: var(--system-blue);
+            color: var(--success-green);
+            text-shadow: 0 0 15px rgba(0, 255, 170, 0.5);
+            font-weight: 900;
         }
 
         .system-btn {
             font-family: 'Orbitron', sans-serif;
-            background: linear-gradient(90deg, var(--system-purple), var(--system-blue));
+            background: linear-gradient(45deg, var(--system-purple), var(--system-blue));
             color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            font-weight: bold;
+            border: 2px solid #ffffff;
+            padding: 18px 50px;
+            font-size: 1.3rem;
+            font-weight: 900;
             text-transform: uppercase;
             cursor: pointer;
-            border-radius: 4px;
-            box-shadow: 0 0 20px rgba(157, 0, 255, 0.6);
-            transition: all 0.3s ease;
+            box-shadow: 0 0 25px rgba(157, 0, 255, 0.5);
+            transition: all 0.2s ease;
             letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
         }
 
         .system-btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 0 30px rgba(0, 240, 255, 0.8);
+            transform: translateY(-2px);
+            box-shadow: 0 0 40px var(--system-blue);
+            letter-spacing: 4px;
+        }
+
+        .system-btn:active {
+            transform: translateY(1px);
         }
 
         .warning-box {
             border: 1px solid var(--warning-red);
-            background: rgba(255, 0, 85, 0.05);
+            background: rgba(255, 0, 85, 0.08);
             padding: 15px;
-            border-radius: 4px;
-            margin-top: 25px;
-            font-size: 0.95rem;
-            color: #ff94b4;
+            margin-top: 30px;
+            font-size: 1rem;
+            color: #ff80a4;
             text-align: center;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         @keyframes pulse {
-            0% { opacity: 0.6; }
-            50% { opacity: 1; text-shadow: 0 0 10px var(--warning-red); }
-            100% { opacity: 0.6; }
+            0% { opacity: 0.7; box-shadow: 0 0 10px rgba(255, 0, 85, 0.2); }
+            50% { opacity: 1; box-shadow: 0 0 25px rgba(255, 0, 85, 0.6); }
+            100% { opacity: 0.7; box-shadow: 0 0 10px rgba(255, 0, 85, 0.2); }
+        }
+
+        @keyframes titleGlitch {
+            0%, 95%, 100% { filter: drop-shadow(0 0 20px rgba(0,240,255,0.4)); }
+            96% { filter: drop-shadow(-5px 2px 0px #ff0055) drop-shadow(5px -2px 0px #00f0ff); }
+            98% { filter: drop-shadow(3px -3px 0px #ff0055) drop-shadow(-3px 3px 0px #00f0ff); }
         }
 
         @media (max-width: 600px) {
-            .system-title { font-size: 2rem; }
-            .quest-header { flex-direction: column; align-items: flex-start; gap: 10px; }
-            .price-tag { font-size: 2rem; }
+            .system-title { font-size: 2.2rem; }
+            .quest-header { flex-direction: column; gap: 15px; text-align: center; }
+            .quest-item { font-size: 1.1rem; }
         }
     </style>
 </head>
@@ -221,3 +250,26 @@
 
     <header>
         <h1 class="system-title">The System</h1>
+        <div class="system-subtitle">Active Quest Authorization</div>
+    </header>
+
+    <main>
+        <div class="system-panel">
+            <div class="quest-header">
+                <div class="quest-title">Daily Quest: Průlom Limitů</div>
+                <div class="quest-status" id="status-text">[ ZAMČENO ]</div>
+            </div>
+            
+            <p class="quest-description">
+                Upozornění: Systém detekoval nezahájený denní program. Pro zpřístupnění úkolů a zamezení penalizace musíte provést autorizaci.
+            </p>
+
+            <ul class="quest-list blurred" id="workout-list">
+                <li class="quest-item">Kliky (Push-ups) <span>0 / 100</span></li>
+                <li class="quest-item">Dřepy (Squats) <span>0 / 100</span></li>
+                <li class="quest-item">Angličáky (Burpees) <span>0 / 50</span></li>
+                <li class="quest-item">Stojka u zdi (Handstand Hold) <span>0 / 2 min</span></li>
+                <li class="quest-item">Běh (Running) <span>0 / 10 km</span></li>
+            </ul>
+
+            <div class="cta-section" id="cta-
